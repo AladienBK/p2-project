@@ -1,0 +1,41 @@
+
+public class Individual extends Client {
+
+    private String drivingLicense;
+    private String birthDate;
+
+    public Individual(int clientId,
+                      String name,
+                      String address,
+                      String phone,
+                      String drivingLicense,
+                      String birthDate) {
+
+        super(clientId, name, address, phone);
+
+        this.drivingLicense = drivingLicense;
+        this.birthDate = birthDate;
+    }
+
+    @Override
+    public double calculateDiscount(double amount) {
+        return 0;
+    }
+
+    @Override
+    public void displayInfo() {
+        System.out.println(this);
+    }
+
+    @Override
+    public String toString() {
+
+        return "Individual{" +
+                "customerId=" + clientId + "\n" + 
+                "name='" + name + "' \n" +
+                "address='" + address + "' \n" +
+                "phone='" + phone + "' \n" +
+                "drivingLicense='" + drivingLicense + "' \n" +
+                "birthDate='" + birthDate + '}' + "\n";
+    }
+}
