@@ -64,7 +64,7 @@ public class VehicleService {
     }
 
     // عرض الشاحنات فقط
-    public void displayTruks() {
+    public void displayTrucks() {
         for (Vehicle v : vehicles) {
             if (v instanceof Truck)
                 v.displayInfo();
@@ -84,6 +84,16 @@ public class VehicleService {
     // ارجاع المركبات المتاحة
     public ArrayList<Vehicle> getVehicles() {
         return vehicles;
+    }
+
+    // عرض المركبات المؤجرة حاليا
+    public void displayRentedVehicles() {
+
+        for (Vehicle v : vehicles) {
+
+            if (!v.isAvailable())
+                v.displayInfo();
+        }
     }
 
     // ارجاع عدد المركبات

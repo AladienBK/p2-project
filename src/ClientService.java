@@ -57,6 +57,18 @@ public class ClientService {
         return null;
     }
 
+    // البحث عن عميل بالاسم
+    public Client searchClient(String name) {
+
+        for (Client client : clients) {
+
+            if (client.getName().equalsIgnoreCase(name))
+                return client;
+        }
+
+        return null;
+    }
+
     // عرض المؤسسات فقط
     public void displayInstitutions() {
 
@@ -67,7 +79,7 @@ public class ClientService {
         }
     }
 
-    //عرض الافراد فقط
+    // عرض الافراد فقط
     public void displayIndividuals() {
 
         for (Client client : clients) {
@@ -96,4 +108,13 @@ public class ClientService {
         return clients;
     }
 
+    // VIP عرض العملاء ال
+    public void showVipClients(RentalService rentalService) {
+
+        for (Client client : clients) {
+
+            if (rentalService.countFinishedContractsForClient(client) >= 5)
+                client.displayInfo();
+        }
+    }
 }

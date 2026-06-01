@@ -1,15 +1,19 @@
 
+import java.time.LocalDate;
+
+
 public class Individual extends Client {
 
     private String drivingLicense;
-    private String birthDate;
+    private LocalDate birthDate;
 
     public Individual(int clientId,
                       String name,
                       String address,
                       String phone,
                       String drivingLicense,
-                      String birthDate) {
+                      LocalDate birthDate
+                      ) {
 
         super(clientId, name, address, phone);
 

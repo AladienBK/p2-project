@@ -1,272 +1,346 @@
+import java.time.LocalDate;
+import java.util.Scanner;
 
 public class App {
-
+    
     public static void main(String[] args) {
 
-        // VehicleService service = new VehicleService();
-        // // تجريب توابع خدمة المركبات
-        // // ==========================
-        // // Add Vehicles
-        // // ==========================
+        Scanner input = new Scanner(System.in);
 
-        // service.addVehicle(
-        //         new Car(
-        //                 "CAR001",
-        //                 "Toyota",
-        //                 "Corolla",
-        //                 100,
-        //                 true,
-        //                 "Gasoline",
-        //                 5,
-        //                 true));
+        VehicleService vehicleService = new VehicleService();
+        ClientService clientService = new ClientService();
+        RentalService rentalService = new RentalService() ;
+        ReportService reportService = new ReportService() ;
+        
+        //--------------------البيانات الاولية--------------------
+        // ================= VEHICLES =================
 
-        // service.addVehicle(
-        //         new Car(
-        //                 "CAR002",
-        //                 "Tesla",
-        //                 "Model 3",
-        //                 200,
-        //                 true,
-        //                 "Electric",
-        //                 5,
-        //                 true));
+        vehicleService.addVehicle(new Car("AA111" ,
+                                        "Toyota",
+                                        "Corolla",
+                                        50,
+                                        true,
+                                        "Gasoline",
+                                        5,
+                                        true));
 
-        // service.addVehicle(
-        //         new Motorcycle(
-        //                 "MOT001",
-        //                 "Honda",
-        //                 "CBR",
-        //                 50,
-        //                 true,
-        //                 600,
-        //                 true));
+        vehicleService.addVehicle(new Car("BB222",
+                                        "Tesla",
+                                        "Model 3",
+                                        100,
+                                        true,
+                                        "Electric",
+                                        5,
+                                        true));
 
-        // service.addVehicle(
-        //         new Truck(
-        //                 "TRK001",
-        //                 "Mercedes",
-        //                 "Actros",
-        //                 300,
-        //                 true,
-        //                 10000,
-        //                 true));
+        vehicleService.addVehicle(new Motorcycle("CC333",
+                                                "Honda",
+                                                "CBR",
+                                                30,
+                                                true,
+                                                600,
+                                                false));
 
-        // // ==========================
-        // // Display All Vehicles
-        // // ==========================
+        vehicleService.addVehicle(new Motorcycle("DD444",
+                                                "Yamaha",
+                                                "MT07",
+                                                35,
+                                                true,
+                                                700, true));
 
-        // System.out.println("\n========== ALL VEHICLES ==========");
+        vehicleService.addVehicle(new Truck("EE555",
+                                            "Mercedes",
+                                            "Actros",
+                                            150,
+                                            true,
+                                            10000,
+                                            false));
 
-        // service.displayAllVehicles();
+        vehicleService.addVehicle(new Truck("FF666",
+                                            "Volvo",
+                                            "FH16",
+                                            180,
+                                            true,
+                                            12000,
+                                            true));
 
-        // // ==========================
-        // // Search Vehicle
-        // // ==========================
 
-        // System.out.println("\n========== SEARCH VEHICLE ==========");
+        // ================= CLIENTS =================
 
-        // Vehicle found = service.searchVehicle("CAR001");
 
-        // if (found != null)
-        //     found.displayInfo();
-        // else
-        //     System.out.println("Vehicle not found");
+        clientService.addClient(new Individual(1,
+                                            "Ahmad Ali",
+                                            "Damascus",
+                                            "0991111111",
+                                            "LIC100",
+                                            LocalDate.of(2000, 5, 10)));
 
-        // // ==========================
-        // // Rental Cost Test
-        // // ==========================
+        clientService.addClient(new Individual(2,
+                                            "Mohammad Hassan",
+                                            "Homs",
+                                            "0992222222",
+                                            "LIC200",
+                                            LocalDate.of(1998, 8, 15)));
 
-        // System.out.println("\n========== RENTAL COSTS FOR 5 DAYS ==========");
+        clientService.addClient(new Individual(3,
+                                            "Omar Khaled",
+                                            "Aleppo",
+                                            "0993333333",
+                                            "LIC300",
+                                            LocalDate.of(1995, 2, 20)));
 
-        // for (Vehicle v : service.getVehicles()) {
+        clientService.addClient(new Institution(4,
+                                            "Tech Company",
+                                            "Damascus",
+                                            "0114444444",
+                                            "REG100",
+                                            10));
 
-        //     System.out.println(
-        //             v.getPlateNumber()
-        //                     + " --> "
-        //                     + v.calculateRentalCost(5));
-        // }
+        clientService.addClient(new Institution(5,
+                                            "Transport Co",
+                                            "Homs",
+                                            "0115555555",
+                                            "REG200",
+                                            15));
 
-        // // ==========================
-        // // Rent Vehicle Test
-        // // ==========================
 
-        // System.out.println("\n========== RENT TEST ==========");
+        int choice;
 
-        // Vehicle car = service.searchVehicle("CAR001");
+        do {
 
-        // car.rent();
+            System.out.println("\n===== CAR RENTAL SYSTEM =====");
+            System.out.println("1. Vehicle service");
+            System.out.println("2. Client service");
+            System.out.println("3. Rental service");
+            System.out.println("4. Reports");
+            System.out.println("0. Exit");
 
-        // System.out.println(
-        //         "CAR001 Available = "
-        //                 + car.isAvailable());
+            System.out.print("Choose: ");
+            choice = input.nextInt();
 
-        // // ==========================
-        // // Available Vehicles
-        // // ==========================
+            switch (choice) {
 
-        // System.out.println("\n========== AVAILABLE VEHICLES ==========");
+                case 1:
+                    vehicleMenu(vehicleService, input);
+                    break;
 
-        // service.displayAvailableVehicles();
+                case 2:
+                    clientMenu(clientService, input);
+                    break;
 
-        // // ==========================
-        // // Return Vehicle Test
-        // // ==========================
+                case 3:
+                    rentalMenu(rentalService, input);
+                    break;
 
-        // System.out.println("\n========== RETURN TEST ==========");
+                case 4:
+                    reportsMenu(reportService, input);
+                    break;
 
-        // car.returnVehicle();
+                case 0:
+                    System.out.println("Good Bye");
+                    break;
 
-        // System.out.println(
-        //         "CAR001 Available = "
-        //                 + car.isAvailable());
+                default:
+                    System.out.println("Invalid Choice");
+            }
 
-        // // ==========================
-        // // Remove Vehicle Test
-        // // ==========================
+        } while (choice != 0);
 
-        // System.out.println("\n========== BEFORE REMOVE ==========");
-
-        // service.displayAllVehicles();
-
-        // service.removeVehicle("MOT001");
-
-        // System.out.println("\n========== AFTER REMOVE ==========");
-
-        // service.displayAllVehicles();
-
-        // // ==========================
-        // // Vehicle Count
-        // // ==========================
-
-        // System.out.println("\n========== VEHICLE COUNT ==========");
-        // System.out.println(
-        //         "Total Vehicles = "
-        //                 + service.getVehiclesCount());
-        // // تجريب توابع خدمة العملاء
-        // ClientService clientService = new ClientService();
-
-        // clientService.addClient(
-        //         new Individual(
-        //                 1,
-        //                 "Ahmad",
-        //                 "Damascus",
-        //                 "099999999",
-        //                 "DL123",
-        //                 "2000-01-01"));
-
-        // clientService.addClient(
-        //         new Institution(
-        //                 2,
-        //                 "ABC Company",
-        //                 "Damascus",
-        //                 "011123456",
-        //                 "CR001",
-        //                 10));
-
-        // System.out.println("\n========== ALL CLIENTS ==========");
-        // clientService.displayClients();
-
-        // System.out.println("\n========== INDIVIDUALS ==========");
-        // clientService.displayIndividuals();
-
-        // System.out.println("\n========== INSTITUTIONS ==========");
-        // clientService.displayInstitutions();
-
-        // System.out.println("\n========== DISCOUNT TEST ==========");
-
-        // Client client = clientService.searchClient(2);
-
-        // System.out.println(
-        //         "Discount = " +
-        //                 client.calculateDiscount(1000));
-
-        // System.out.println("\n========== UPDATE TEST ==========");
-
-        // clientService.updateClient(
-        //         2,
-        //         "XYZ Company",
-        //         "Aleppo",
-        //         "011999999");
-
-        // clientService.displayClients();
-
-        // System.out.println("\n========== REMOVE TEST ==========");
-
-        // clientService.removeClient(1);
-
-        // clientService.displayClients();
-
-        // System.out.println(
-        //         "\nTotal Clients = "
-        //                 + clientService.getClientsCount());
-
-        // // -----------اختبار العقود-------------
-
-        // client = clientService.searchClient(2);
-
-        // Vehicle vehicle = service.searchVehicle("CAR002");
-
-        // RentalContract contract = new RentalContract(
-        //         1,
-        //         client,
-        //         vehicle,
-        //         5,
-        //         "2025-05-01");
-
-        // contract.displayContract();
-        // RentalService rentalService = new RentalService();
-        // RentalContract contract1 = new RentalContract(
-        //         1,
-        //         clientService.searchClient(2),
-        //         service.searchVehicle("CAR002"),
-        //         5,
-        //         "2025-05-01");
-
-        // rentalService.rentVehicle(contract1);
-        // System.out.println(
-        //         "\n========== CONTRACTS ==========");
-
-        // rentalService.displayContracts();
-        // System.out.println(
-        //         "\nAvailable = "
-        //                 + service
-        //                         .searchVehicle("CAR002")
-        //                         .isAvailable());
-        // rentalService.returnVehicle(1);
-        // System.out.println(
-        //         "\nAvailable = "
-        //                 + service
-        //                         .searchVehicle("CAR002")
-        //                         .isAvailable());
-        // System.out.println(
-        //         "\nContracts Count = "
-        //                 + rentalService.getContractsCount());
-
-        // ReportService reportService = new ReportService();
-        // System.out.println(
-        //         "\n========== VEHICLE REPORT ==========");
-
-        // reportService.vehicleCountReport(
-        //         service);
-        // System.out.println(
-        //         "\n========== CLIENT REPORT ==========");
-
-        // reportService.clientCountReport(
-        //         clientService);
-        // System.out.println(
-        //         "\n========== CONTRACT REPORT ==========");
-
-        // reportService.contractCountReport(
-        //         rentalService);
-        // System.out.println(
-        //         "\n========== REVENUE REPORT ==========");
-
-        // reportService.totalRevenueReport(
-        //         rentalService);
-        // System.out.println(
-        //         "\n========== AVAILABLE VEHICLES ==========");
-
-        // reportService.availableVehiclesReport(
-        //         service);
+        input.close();
     }
+
+    // قائمة المركبات
+    private static void vehicleMenu(VehicleService service, Scanner input) {
+
+        int choice;
+
+        do {
+
+            System.out.println("\n===== VEHICLE MENU =====");
+            System.out.println("1. Add Vehicle");
+            System.out.println("2. Remove Vehicle");
+            System.out.println("3. Search Vehicle");
+            System.out.println("4. Show All Vehicles");
+            System.out.println("0. Back");
+
+            choice = input.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    // add vehicle
+                    break;
+
+                case 2:
+                    // remove vehicle
+                    break;
+
+                case 3:
+                    // search vehicle
+                    break;
+
+                case 4:
+                    // show all vehicles
+                    break;
+
+                case 0:
+                    break;
+
+                default:
+                    System.out.println("Invalid choice");
+            }
+
+        } while (choice != 0);
+    }
+
+    // قائمة العملاء
+    private static void clientMenu(ClientService service, Scanner input) {
+
+        int choice;
+
+        do {
+
+            System.out.println("\n===== CLIENT MENU =====");
+            System.out.println("1. Add Client");
+            System.out.println("2. Search Client");
+            System.out.println("3. Edit Client");
+            System.out.println("4. Show All Clients");
+            System.out.println("0. Back");
+
+            System.out.print("Choose: ");
+            choice = input.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    // Add Client
+                    break;
+
+                case 2:
+                    // Search Client
+                    break;
+
+                case 3:
+                    // Edit Client
+                    break;
+
+                case 4:
+                    //Show All Clients
+                    break;
+
+                case 0:
+                    break;
+
+                default:
+                    System.out.println("Invalid Choice");
+            }
+
+        } while (choice != 0);
+    }
+
+    // قائمة الايجار
+    private static void rentalMenu(RentalService service, Scanner input) {
+
+        int choice;
+
+        do {
+
+            System.out.println("\n===== RENTAL MENU =====");
+            System.out.println("1. Rent Vehicle");
+            System.out.println("2. Return Vehicle");
+            System.out.println("3. Active Contracts");
+            System.out.println("4. Finished Contracts");
+            System.out.println("5. Currently Rented Vehicles");
+            System.out.println("0. Back");
+
+            System.out.print("Choose: ");
+            choice = input.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    // Rent Vehicle
+                    break;
+
+                case 2:
+                    // Return Vehicle
+                    break;
+
+                case 3:
+                    service.showActiveContracts();
+                    break;
+
+                case 4:
+                    service.showFinishedContracts();
+                    break;
+
+                case 5:
+                    service.;
+                    break;
+
+                case 0:
+                    break;
+
+                default:
+                    System.out.println("Invalid Choice");
+            }
+
+        } while (choice != 0);
+    }
+
+    // قائمة التقارير
+    private static void reportsMenu(ReportService service, Scanner input) {
+
+        int choice;
+
+        do {
+
+            System.out.println("\n===== REPORTS MENU =====");
+            System.out.println("1. Revenue Report");
+            System.out.println("2. Most Rented Vehicles");
+            System.out.println("3. VIP Clients");
+            System.out.println("4. Vehicles With Fines");
+            System.out.println("5. Vehicles Between Dates");
+            System.out.println("6. Clients By Vehicle");
+            System.out.println("0. Back");
+
+            System.out.print("Choose: ");
+            choice = input.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    service.;
+                    break;
+
+                case 2:
+                    service.;
+                    break;
+
+                case 3:
+                    service.;
+                    break;
+
+                case 4:
+                    service.;
+                    break;
+
+                case 5:
+                    // Vehicles Between Dates
+                    break;
+
+                case 6:
+                    // Clients By Vehicle
+                    break;
+
+                case 0:
+                    break;
+
+                default:
+                    System.out.println("Invalid Choice");
+            }
+
+        } while (choice != 0);
+    }
+
 }
