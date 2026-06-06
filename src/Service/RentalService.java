@@ -1,10 +1,8 @@
 package Service;
 
-import Customer.Client;
 import Customer.*;
 import Rental.RentalContract;
 import Vehicle.*;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -135,14 +133,14 @@ public class RentalService {
     }
 
     // ارجاع مركبة
-    public boolean returnVehicle(int contractId) {
+    public boolean returnVehicle(int contractId , LocalDate actualReturnDate) {
 
         RentalContract contract = searchContract(contractId);
 
         if (contract == null)
             return false;
 
-        contract.closeContract(LocalDate.now());
+        contract.closeContract(actualReturnDate);
 
         contract.getVehicle().returnVehicle();
         contract.printInvoice();

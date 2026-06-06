@@ -2,7 +2,6 @@ package Rental;
 
 import Customer.Client;
 import Vehicle.Vehicle;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 

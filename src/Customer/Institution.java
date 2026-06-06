@@ -34,12 +34,12 @@ public class Institution extends Client {
     @Override
     public String toString() {
 
-        return "Company{" +
-                "customerId=" + clientId + "\n" +
+        return "instution{" +
+                " Client Id=" + clientId + "\n" +
                 "name='" + name + "' \n" +
                 "address='" + address + "' \n" +
                 "phone='" + phone + "' \n" +
-                "commercialRecord='" + commercialRecord + "' \n" +
-                "discountRate=" + discountRate + '}' + "\n";
+                "commercial Record='" + commercialRecord + "' \n" +
+                "discount Rate=" + discountRate + '}' + "\n";
     }
 }

@@ -1,7 +1,6 @@
 package Service;
 
 import Vehicle.*;
-
 import java.util.ArrayList;
 
 public class VehicleService {
@@ -100,7 +99,7 @@ public class VehicleService {
 
             if (!v.isAvailable())
                 v.displayInfo();
-            else
+            else if(vehicles.size()==0)
                 System.out.println("Not Found any Rented Vehicles");
         }
     }

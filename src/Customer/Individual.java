@@ -35,12 +35,12 @@ public class Individual extends Client {
     @Override
     public String toString() {
 
-        return "Customer.Individual{" +
-                "customerId=" + clientId + "\n" + 
+        return "Individual{" +
+                "Client Id=" + clientId + "\n" + 
                 "name='" + name + "' \n" +
                 "address='" + address + "' \n" +
                 "phone='" + phone + "' \n" +
-                "drivingLicense='" + drivingLicense + "' \n" +
-                "birthDate='" + birthDate + '}' + "\n";
+                "driving License='" + drivingLicense + "' \n" +
+                "birth Date='" + birthDate + '}' + "\n";
     }
 }
