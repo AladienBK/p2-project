@@ -1,3 +1,8 @@
+package Rental;
+
+import Customer.Client;
+import Vehicle.Vehicle;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -68,24 +73,24 @@ public class RentalContract {
     @Override
     public String toString() {
 
-        return "RentalContract{" + "\n" +
+        return "Rental Contract{" + "\n" +
                 "contractId=" + contractId + "\n" +
                 "client=" + client.getName() + "\n" +
                 "vehicle=" + vehicle.getPlateNumber() + "\n" +
                 "rentalDays=" + rentalDays + "\n" +
                 "rentalDate='" + rentalDate + "' \n" +
-                "totalCost=" + calculateTotalCost() + '}' + "\n" +
-                "finalCost=" + finalCost + "\n";
+                "totalCost=" + calculateTotalCost()  + "\n" +
+                "finalCost=" + finalCost + '}'+ "\n";
 
     }
 
     //تابع عرض الفاتورة
     public void printInvoice() {
 
-        System.out.println("\n===== FINAL INVOICE =====");
+        System.out.println("\n FINAL INVOICE ");
 
         System.out.println("Contract ID : " + contractId);
-        System.out.println("Client      : " + client.getName());
+        System.out.println("Customer Name     : " + client.getName());
         System.out.println("Vehicle     : " + vehicle.getPlateNumber());
 
         System.out.println("-------------------------");

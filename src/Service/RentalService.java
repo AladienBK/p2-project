@@ -1,3 +1,10 @@
+package Service;
+
+import Customer.Client;
+import Customer.*;
+import Rental.RentalContract;
+import Vehicle.*;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -177,6 +184,7 @@ public class RentalService {
                     found = true;
                 }
             }
+
         }
 
         if (!found) {
@@ -270,7 +278,7 @@ public class RentalService {
             }
         }
 
-        System.out.println("\n===== MOST RENTED VEHICLES =====");
+        System.out.println("\n.... MOST RENTED VEHICLES ....");
 
         for (Vehicle vehicle : mostRentedVehicles) {
 
@@ -292,9 +300,9 @@ public class RentalService {
             }
         }
 
-        System.out.println("\n===== COMPANY REVENUE =====");
+        System.out.println("\n... COMPANY REVENUE ...");
         System.out.println("Total Revenue = " + totalRevenue);
-        System.out.println("===========================\n");
+        System.out.println("--------------------------------\n");
     }
 
 }

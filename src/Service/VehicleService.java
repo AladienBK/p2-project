@@ -1,3 +1,6 @@
+package Service;
+
+import Vehicle.*;
 
 import java.util.ArrayList;
 
@@ -36,8 +39,12 @@ public class VehicleService {
 
         Vehicle vehicle = searchVehicle(plateNumber);
 
-        if (vehicle != null)
+        if (vehicle != null){
             vehicles.remove(vehicle);
+        System.out.println("\n*** Remove Successful ***");}
+        else
+            System.out.println("\n*** Remove Fail!, this plate Number Not Found. ***");
+
     }
 
     // عرض جميع المركبات
@@ -93,6 +100,8 @@ public class VehicleService {
 
             if (!v.isAvailable())
                 v.displayInfo();
+            else
+                System.out.println("Not Found any Rented Vehicles");
         }
     }
 

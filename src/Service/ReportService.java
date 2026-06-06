@@ -1,3 +1,7 @@
+package Service;
+
+import Rental.RentalContract;
+
 public class ReportService {
 
         // عرض عدد المركبات

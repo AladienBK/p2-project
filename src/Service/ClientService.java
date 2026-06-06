@@ -1,3 +1,8 @@
+package Service;
+
+import Customer.Client;
+import Customer.Individual;
+import Customer.Institution;
 
 import java.util.ArrayList;
 
@@ -28,10 +33,7 @@ public class ClientService {
     }
 
     // تعديل بيانات العميل
-    public boolean updateClient(int id,
-            String newName,
-            String newAddress,
-            String newPhone) {
+    public boolean updateClient(int id, String newName, String newAddress, String newPhone) {
 
         Client client = searchClient(id);
 

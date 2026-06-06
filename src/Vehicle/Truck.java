@@ -1,3 +1,4 @@
+package Vehicle;
 
 public class Truck extends Vehicle {
 
@@ -32,8 +33,8 @@ public class Truck extends Vehicle {
 
     @Override
     public String toString() {
-        return "Truck{" +
-                "plateNumber='" + plateNumber + "' \n" +
+        return "Vehicle.Truck{" +
+                "\nplateNumber='" + plateNumber + "' \n" +
                 "brand='" + brand + "' \n" +
                 "model='" + model + "' \n" +
                 "dailyPrice=" + dailyPrice + "\n" +

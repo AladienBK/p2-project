@@ -1,3 +1,4 @@
+package Customer;
 
 import java.time.LocalDate;
 
@@ -34,7 +35,7 @@ public class Individual extends Client {
     @Override
     public String toString() {
 
-        return "Individual{" +
+        return "Customer.Individual{" +
                 "customerId=" + clientId + "\n" + 
                 "name='" + name + "' \n" +
                 "address='" + address + "' \n" +
