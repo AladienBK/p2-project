@@ -21,6 +21,19 @@ public class VehicleService {
 
     }
 
+    // ازالة مركبة بواسطة رقم اللوحة
+    public void removeVehicle(String plateNumber) {
+
+        Vehicle vehicle = searchVehicle(plateNumber);
+
+        if (vehicle != null) {
+            vehicles.remove(vehicle);
+            System.out.println("\n*** Remove Successful ***");
+        } else
+            System.out.println("\n*** Remove Fail!, this plate Number Not Found. ***");
+
+    }
+
     // البحث عن مركبة بواسطة رقم اللوحة و ارجاعها ك اوبجيكت
     public Vehicle searchVehicle(String plateNumber) {
 
@@ -33,48 +46,11 @@ public class VehicleService {
         return null;
     }
 
-    // ازالة مركبة بواسطة رقم اللوحة
-    public void removeVehicle(String plateNumber) {
-
-        Vehicle vehicle = searchVehicle(plateNumber);
-
-        if (vehicle != null){
-            vehicles.remove(vehicle);
-        System.out.println("\n*** Remove Successful ***");}
-        else
-            System.out.println("\n*** Remove Fail!, this plate Number Not Found. ***");
-
-    }
-
     // عرض جميع المركبات
     public void displayAllVehicles() {
 
         for (Vehicle v : vehicles)
             v.displayInfo();
-    }
-
-    // عرض السيارات فقط
-    public void displayCars() {
-        for (Vehicle v : vehicles) {
-            if (v instanceof Car)
-                v.displayInfo();
-        }
-    }
-
-    // عرض الدراجات النارية فقط
-    public void displayMotorcycles() {
-        for (Vehicle v : vehicles) {
-            if (v instanceof Motorcycle)
-                v.displayInfo();
-        }
-    }
-
-    // عرض الشاحنات فقط
-    public void displayTrucks() {
-        for (Vehicle v : vehicles) {
-            if (v instanceof Truck)
-                v.displayInfo();
-        }
     }
 
     // عرض المركبات المتاحة
@@ -87,11 +63,6 @@ public class VehicleService {
         }
     }
 
-    // ارجاع المركبات المتاحة
-    public ArrayList<Vehicle> getVehicles() {
-        return vehicles;
-    }
-
     // عرض المركبات المؤجرة حاليا
     public void displayRentedVehicles() {
 
@@ -99,18 +70,9 @@ public class VehicleService {
 
             if (!v.isAvailable())
                 v.displayInfo();
-            else if(vehicles.size()==0)
+            else if (vehicles.size() == 0)
                 System.out.println("Not Found any Rented Vehicles");
         }
     }
 
-    // ارجاع عدد المركبات
-    public int getVehiclesCount() {
-        return vehicles.size();
-    }
-
-    // معرفة اذا ما كانت الشاحنة موجودة ام لا
-    public boolean vehicleExists(String plateNumber) {
-        return searchVehicle(plateNumber) != null;
-    }
 }

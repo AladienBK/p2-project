@@ -73,13 +73,21 @@ public class RentalService {
         }
     }
 
-    // عرض المركبات التي عليها غرامات
+    // عرض المركبات التي عليها غرامات حاليا
+
     public void showVehiclesWithFines() {
 
         for (RentalContract contract : contracts) {
 
-            if (contract.getFine() > 0)
-                contract.getVehicle().displayInfo();
+            if (!contract.isFinished()) {
+
+                LocalDate expectedDate = contract.getRentalDate().plusDays(contract.getRentalDays());
+
+                if (LocalDate.now().isAfter(expectedDate)) {
+                    contract.getVehicle().displayInfo();
+
+                }
+            }
         }
     }
 
@@ -133,7 +141,7 @@ public class RentalService {
     }
 
     // ارجاع مركبة
-    public boolean returnVehicle(int contractId , LocalDate actualReturnDate) {
+    public boolean returnVehicle(int contractId, LocalDate actualReturnDate) {
 
         RentalContract contract = searchContract(contractId);
 
@@ -147,24 +155,6 @@ public class RentalService {
         return true;
     }
 
-    // عدد العقود المنتهية للعميل الواحد
-    public int countFinishedContractsForClient(Client client) {
-
-        int count = 0;
-
-        for (RentalContract contract : contracts) {
-
-            if (contract.isFinished()
-                    && contract.getClient().getClientId() == client.getClientId()) {
-
-                count++;
-            }
-        }
-
-        return count;
-    }
-
-    
     // عرض العملاء الذين استاجروا سيارة معينة
     public void showClientsByVehicle(String plateNumber) {
 
@@ -200,7 +190,8 @@ public class RentalService {
         for (RentalContract contract : contracts) {
 
             LocalDate rentDate = contract.getRentalDate();
-            if ((rentDate.isEqual(startDate) || rentDate.isAfter(startDate))&& (rentDate.isEqual(endDate) || rentDate.isBefore(endDate))) {
+            if ((rentDate.isEqual(startDate) || rentDate.isAfter(startDate))
+                    && (rentDate.isEqual(endDate) || rentDate.isBefore(endDate))) {
 
                 Vehicle vehicle = contract.getVehicle();
                 if (motorcyclesOnly && !(vehicle instanceof Motorcycle))
@@ -218,6 +209,23 @@ public class RentalService {
 
         if (!found)
             System.out.println("No vehicles found.");
+    }
+
+    // عرض الايرادات الكلية
+    public void showTotalRevenue() {
+
+        double totalRevenue = 0;
+
+        for (RentalContract contract : contracts) {
+
+            if (contract.isFinished()) {
+                totalRevenue += contract.getFinalCost();
+            }
+        }
+
+        System.out.println("\n... COMPANY REVENUE ...");
+        System.out.println("Total Revenue = " + totalRevenue);
+        System.out.println("--------------------------------\n");
     }
 
     // عرض المركبات الاكثر تاجيرا
@@ -286,21 +294,20 @@ public class RentalService {
         }
     }
 
-    // عرض الايرادات الكلية
-    public void showTotalRevenue() {
+    // عدد العقود المنتهية للعميل الواحد
+    public int countFinishedContractsForClient(Client client) {
 
-        double totalRevenue = 0;
+        int count = 0;
 
         for (RentalContract contract : contracts) {
 
-            if (contract.isFinished()) {
-                totalRevenue += contract.getFinalCost();
+            if (contract.isFinished()
+                    && contract.getClient().getClientId() == client.getClientId()) {
+
+                count++;
             }
         }
 
-        System.out.println("\n... COMPANY REVENUE ...");
-        System.out.println("Total Revenue = " + totalRevenue);
-        System.out.println("--------------------------------\n");
+        return count;
     }
-
 }

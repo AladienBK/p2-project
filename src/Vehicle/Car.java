@@ -25,7 +25,7 @@ public class Car extends Vehicle {
 
         double cost = dailyPrice * days;
 
-        if (fuelType.equalsIgnoreCase("electric"))
+        if (fuelType.equals("electric"))
             cost *= 1.05;
 
         return cost;

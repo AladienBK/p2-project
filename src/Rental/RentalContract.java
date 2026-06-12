@@ -14,7 +14,7 @@ public class RentalContract {
     private LocalDate rentalDate;
     private LocalDate returnDate;
     private int lateDays;
-    private boolean finished;
+    private boolean finished; // هل العقد منتهي ام لا
     private double fine;
     private double finalCost;
     private double basicCost;
@@ -54,13 +54,14 @@ public class RentalContract {
 
         if (actualReturnDate.isAfter(expectedDate)) {
             lateDays = (int) ChronoUnit.DAYS.between(expectedDate, actualReturnDate);
+            basicCost += lateDays*vehicle.getDailyPrice();
             fine = basicCost * 0.10 * lateDays;
         } else {
             lateDays = 0;
             fine = 0;
         }
 
-        finalCost += fine;
+        finalCost = basicCost + fine;
         finished = true;
     }
 
@@ -78,12 +79,12 @@ public class RentalContract {
                 "vehicle=" + vehicle.getPlateNumber() + "\n" +
                 "rentalDays=" + rentalDays + "\n" +
                 "rentalDate='" + rentalDate + "' \n" +
-                "totalCost=" + calculateTotalCost()  + "\n" +
-                "finalCost=" + finalCost + '}'+ "\n";
+                "totalCost=" + calculateTotalCost() + "\n" +
+                "finalCost=" + finalCost + '}' + "\n";
 
     }
 
-    //تابع عرض الفاتورة
+    // تابع عرض الفاتورة
     public void printInvoice() {
 
         System.out.println("\n FINAL INVOICE ");
@@ -135,6 +136,7 @@ public class RentalContract {
     }
 
     public double getFine() {
+        
         return fine;
     }
 
@@ -154,4 +156,13 @@ public class RentalContract {
         return returnDate;
     }
 
+    public void setLateDays(int lateDays) {
+        this.lateDays = lateDays;
+    }
+
+    public void setFine(double fine) {
+        this.fine = fine;
+    }
+
+    
 }

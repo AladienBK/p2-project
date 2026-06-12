@@ -1,49 +1,19 @@
 package Service;
 
 import Customer.Client;
-import Customer.Individual;
-import Customer.Institution;
-
 import java.util.ArrayList;
 
 public class ClientService {
 
     private ArrayList<Client> clients = new ArrayList<>(); // نخزن فيها جميع العملاء
 
-    // اضافة عملاء
+    // اضافة عميل جديد
     public boolean addClient(Client client) {
 
         if (searchClient(client.getClientId()) != null)
             return false;
 
         clients.add(client);
-        return true;
-    }
-
-    // حذف عميل
-    public boolean removeClient(int clientId) {
-
-        Client client = searchClient(clientId);
-
-        if (client == null)
-            return false;
-
-        clients.remove(client);
-        return true;
-    }
-
-    // تعديل بيانات العميل
-    public boolean updateClient(int id, String newName, String newAddress, String newPhone) {
-
-        Client client = searchClient(id);
-
-        if (client == null)
-            return false;
-
-        client.setName(newName);
-        client.setAddress(newAddress);
-        client.setPhone(newPhone);
-
         return true;
     }
 
@@ -71,26 +41,6 @@ public class ClientService {
         return null;
     }
 
-    // عرض المؤسسات فقط
-    public void displayInstitutions() {
-
-        for (Client client : clients) {
-
-            if (client instanceof Institution)
-                client.displayInfo();
-        }
-    }
-
-    // عرض الافراد فقط
-    public void displayIndividuals() {
-
-        for (Client client : clients) {
-
-            if (client instanceof Individual)
-                client.displayInfo();
-        }
-    }
-
     // عرض جميع العملاء
     public void displayClients() {
 
@@ -98,18 +48,21 @@ public class ClientService {
             c.displayInfo();
     }
 
-    // ارجاع عدد العملاء
-    public int getClientsCount() {
+    // تعديل معلومات العميل
+    public boolean updateClient(int id, String newName, String newAddress, String newPhone) {
 
-        return clients.size();
+        Client client = searchClient(id);
+
+        if (client == null)
+            return false;
+
+        client.setName(newName);
+        client.setAddress(newAddress);
+        client.setPhone(newPhone);
+        
+        return true;
     }
-
-    // Arraylist ارجاع العملاء في
-    public ArrayList<Client> getClients() {
-
-        return clients;
-    }
-
+    
     // VIP عرض العملاء ال
     public void showVipClients(RentalService rentalService) {
 
@@ -119,4 +72,6 @@ public class ClientService {
                 client.displayInfo();
         }
     }
+
+
 }

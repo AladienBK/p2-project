@@ -56,7 +56,8 @@ public class App {
                 "MT07",
                 35,
                 true,
-                700, true));
+                700,
+                true));
 
         vehicleService.addVehicle(new Truck("EE555",
                 "Mercedes",
@@ -77,21 +78,21 @@ public class App {
         // ================= CLIENTS =================
 
         clientService.addClient(new Individual(1,
-                "Ahmad Ali",
+                "Ahmad",
                 "Damascus",
                 "0991111111",
                 "LIC100",
                 LocalDate.of(2000, 5, 10)));
 
         clientService.addClient(new Individual(2,
-                "Mohammad Hassan",
+                "Mohammad",
                 "Homs",
                 "0992222222",
                 "LIC200",
                 LocalDate.of(1998, 8, 15)));
 
         clientService.addClient(new Individual(3,
-                "Omar Khaled",
+                "Omar",
                 "Aleppo",
                 "0993333333",
                 "LIC300",
@@ -123,26 +124,26 @@ public class App {
         Vehicle moto1 = vehicleService.searchVehicle("CC333");
         Vehicle truck1 = vehicleService.searchVehicle("EE555");
 
+        // عقد منتهي لمحمد بدون تاخير (بدون ضريبة )
+
         RentalContract c1 = new RentalContract(2, muhammad, car1, 5, LocalDate.of(2025, 1, 1));
         rentalService.rentVehicle(c1);
         rentalService.returnVehicle(2, LocalDate.of(2025, 1, 5));
 
         // 5 عقود منتهية لأحمد => VIP
 
+        // عقود بين الشهر الاول والشهر الخامس للبحث
         RentalContract c2 = new RentalContract(1, ahmad, car1, 2, LocalDate.of(2025, 1, 9));
         rentalService.rentVehicle(c2);
-        rentalService.returnVehicle(1 , LocalDate.of(2025, 1, 11));
-
+        rentalService.returnVehicle(1, LocalDate.of(2025, 1, 11));
 
         RentalContract c3 = new RentalContract(3, ahmad, car1, 2, LocalDate.of(2025, 2, 1));
         rentalService.rentVehicle(c3);
         rentalService.returnVehicle(3, LocalDate.of(2025, 2, 3));
 
-
         RentalContract c4 = new RentalContract(4, ahmad, moto1, 4, LocalDate.of(2025, 3, 1));
         rentalService.rentVehicle(c4);
         rentalService.returnVehicle(4, LocalDate.of(2025, 3, 3));
-
 
         RentalContract c5 = new RentalContract(5, ahmad, truck1, 5, LocalDate.of(2025, 4, 1));
         rentalService.rentVehicle(c5);
@@ -153,10 +154,14 @@ public class App {
         rentalService.rentVehicle(c6);
         rentalService.returnVehicle(6, LocalDate.of(2025, 5, 17));
 
+        // عقد منتهي لمؤسسة
+        RentalContract notActive = new RentalContract(7, company, car2, 7, LocalDate.of(2026, 1, 15));
+        rentalService.rentVehicle(notActive);
+        rentalService.returnVehicle(7, LocalDate.of(2026, 1, 23));
 
-        // عقد نشط لمؤسسة
-        RentalContract active1 = new RentalContract(6, company, car2, 7, LocalDate.now());
-        rentalService.rentVehicle(active1);
+        // عقد نشط لمؤسسة و متاخر
+        RentalContract active = new RentalContract(8, company, car2, 7, LocalDate.of(2026, 6, 1));
+        rentalService.rentVehicle(active);
 
         while (true) {
             App app = new App();
@@ -276,8 +281,7 @@ public class App {
 
         }
 
-
-        //                ------------------ main end -----------------
+        // ------------------ main end -----------------
     }
 
     public int menu() {
@@ -335,15 +339,17 @@ public class App {
                 "6. Add New Client.\n" +
                 "7. Search Client.\n" +
                 "8. Display Client.\n" +
-                "9. Edit Client Information.\n");
+                "9. Edit Client Information.\n" +
+                "0. Back \n");
 
         while (!input.hasNextInt()) {
             System.out.println("Please Enter Integer Number!");
             input.next();
         }
         int c = input.nextInt();
+        if (c == 0)
+            return menu();
         return c;
-
     }
 
     public int rental_management() {
@@ -355,14 +361,17 @@ public class App {
                 "14. Display rental Vehicles currently.\n" +
                 "15. Display of Vehicle with outstanding fines.\n" +
                 "16. Display rental vehicles between two dates .\n" +
-                "17. Display Clients who rented a spescific vehicle.\n ");
+                "17. Display Clients who rented a spescific vehicle.\n " +
+                "0. Back \n" +
+                "21. Exit.");
         while (!input.hasNextInt()) {
             System.out.println("Please Enter Integer Number!");
             input.next();
         }
         int c = input.nextInt();
+        if (c == 0)
+            return menu();
         return c;
-
     }
 
     public int reports() {
@@ -370,6 +379,7 @@ public class App {
                 "18. Display Revenue Report.\n" +
                 "19. Display Most Rented Vehicles.\n" +
                 "20. Display VIP Clients  .\n" +
+                "0. Back \n" +
                 "21. Exit.");
 
         while (!input.hasNextInt()) {
@@ -377,8 +387,9 @@ public class App {
             input.next();
         }
         int c = input.nextInt();
+        if (c == 0)
+            return menu();
         return c;
-
     }
 
     public void one(VehicleService vehicleService) {
@@ -628,7 +639,7 @@ public class App {
         System.out.println("\nPlease Enter Contract ID for Return : ");
         int idContract = in.nextInt();
 
-        boolean finishContract = rentalService.returnVehicle(idContract , LocalDate.now());
+        boolean finishContract = rentalService.returnVehicle(idContract, LocalDate.now());
         if (finishContract)
             System.out.println("\n ** Return Vehicle Successful **\n ");
         else
@@ -650,7 +661,8 @@ public class App {
     }
 
     public void thirteen(RentalService rentalService) {
-        System.out.println("\n 1. Display Clients rentals Contracts By Name . \n 2. Display Institutions rentals Contract .  ");
+        System.out.println(
+                "\n 1. Display Clients rentals Contracts By Name . \n 2. Display Institutions rentals Contract .  ");
         String showCos = in.next();
 
         if (showCos.equals("1")) {
@@ -664,7 +676,6 @@ public class App {
 
     }
 
-   
     public void sixteen(RentalService rentalService) {
         System.out.println(
                 "\n 1. You need Display All rental Vehicles for Date. \n 2. You need Display rental Motorcycle Only for Date.  ");
